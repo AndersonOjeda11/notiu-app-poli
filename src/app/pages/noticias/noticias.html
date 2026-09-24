@@ -1,0 +1,54 @@
+<div class="container py-4">
+  <h1 class="h2">Noticias</h1>
+  <p class="text-body-secondary">Explora las últimas publicaciones de la universidad.</p>
+
+  <!-- Filtros -->
+  <div class="row g-3 align-items-center mb-4">
+    <div class="col-md-5">
+      <div class="input-group">
+        <span class="input-group-text"><i class="bi bi-search"></i></span>
+        <input
+          type="search"
+          class="form-control"
+          placeholder="Buscar noticia..."
+          aria-label="Buscar noticia"
+          [value]="busqueda()"
+          (input)="busqueda.set($any($event.target).value)"
+        />
+      </div>
+    </div>
+    <div class="col-md-7">
+      <div class="d-flex flex-wrap gap-2" role="group" aria-label="Filtrar por categoría">
+        @for (c of categorias; track c) {
+          <button
+            type="button"
+            class="btn btn-sm rounded-pill"
+            [class]="categoria() === c ? 'btn-primary' : 'btn-outline-secondary'"
+            [attr.aria-pressed]="categoria() === c"
+            (click)="categoria.set(c)"
+          >
+            {{ c }}
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+
+  <p class="small text-body-secondary">{{ filtradas().length }} noticia(s) encontradas</p>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @for (noticia of filtradas(); track noticia.id) {
+      <div class="col">
+        <app-noticia-card [noticia]="noticia" />
+      </div>
+    } @empty {
+      <div class="col-12">
+        <div class="text-center border rounded-3 p-5 text-body-secondary">
+          <i class="bi bi-search fs-1"></i>
+          <p class="mt-2">No hay noticias que coincidan con tu búsqueda.</p>
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="limpiarFiltros()">Limpiar filtros</button>
+        </div>
+      </div>
+    }
+  </div>
+</div>
