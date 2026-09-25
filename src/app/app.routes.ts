@@ -21,5 +21,10 @@ export const routes: Routes = [
     title: 'Mis favoritos | NotiU',
     loadComponent: () => import('./pages/favoritos/favoritos'),
   },
+  {
+    path: 'admin',
+    title: 'Administrar | NotiU',
+    loadComponent: () => import('./pages/admin/admin'),
+  },
   { path: '**', redirectTo: '' },
 ];
