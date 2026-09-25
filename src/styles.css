@@ -1,1 +1,11 @@
 /* Estilos globales. Bootstrap y Bootstrap Icons se cargan desde angular.json. */
+
+.card-img-top {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* Borde punteado para el estado vacío de favoritos (Bootstrap no trae esta utilidad). */
+.border-dashed {
+  border-style: dashed !important;
+}

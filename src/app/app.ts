@@ -1,16 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Footer } from './components/footer/footer';
+import { Navbar } from './components/navbar/navbar';
+import { AuthService } from './services/auth.service';
 
-/** Componente raíz del proyecto base (Angular + Bootstrap). */
+/** Componente raíz: navbar y footer solo se muestran cuando hay sesión iniciada. */
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Navbar, Footer],
   template: `
-    <div class="container py-5">
-      <h1 class="display-6 fw-bold"><i class="bi bi-newspaper text-primary"></i> NotiU</h1>
-      <p class="text-body-secondary">Proyecto base: Angular 22 + Bootstrap 5.</p>
-    </div>
-    <router-outlet />
+    @if (auth.estaAutenticado()) {
+      <app-navbar />
+    }
+    <main class="flex-grow-1">
+      <router-outlet />
+    </main>
+    @if (auth.estaAutenticado()) {
+      <app-footer />
+    }
   `,
+  host: { class: 'd-flex flex-column min-vh-100' },
 })
-export class App {}
+export class App {
+  protected readonly auth = inject(AuthService);
+}
