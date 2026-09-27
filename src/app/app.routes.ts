@@ -26,5 +26,10 @@ export const routes: Routes = [
     title: 'Administrar | NotiU',
     loadComponent: () => import('./pages/admin/admin'),
   },
+  {
+    path: 'contacto',
+    title: 'Contacto | NotiU',
+    loadComponent: () => import('./pages/contacto/contacto').then((m) => m.Contacto),
+  },
   { path: '**', redirectTo: '' },
 ];
