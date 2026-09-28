@@ -1,0 +1,9 @@
+[
+  {
+    "id": 1,
+    "nombre": "Administrador",
+    "correo": "admin@notiu.com",
+    "password": "admin123",
+    "rol": "admin"
+  }
+]

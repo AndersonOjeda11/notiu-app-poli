@@ -1,0 +1,62 @@
+<div class="d-flex align-items-center justify-content-center px-3 py-5">
+  <div class="card shadow-sm w-100" style="max-width: 400px">
+    <div class="card-body p-4">
+      <div class="text-center mb-4">
+        <h1 class="h3 fw-bold mb-1"><i class="bi bi-newspaper text-primary"></i> NotiU</h1>
+        <p class="text-body-secondary mb-0">Acceso para la administración de noticias</p>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="ingresar()" novalidate>
+        <div class="mb-3">
+          <label for="correo" class="form-label">Correo electrónico</label>
+          <input
+            id="correo"
+            type="email"
+            class="form-control"
+            formControlName="correo"
+            autocomplete="username"
+            placeholder="usuario@notiu.com"
+            [class.is-invalid]="form.controls.correo.touched && form.controls.correo.invalid"
+          />
+          <div class="invalid-feedback">Ingresa un correo válido.</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input
+            id="password"
+            type="password"
+            class="form-control"
+            formControlName="password"
+            autocomplete="current-password"
+            [class.is-invalid]="form.controls.password.touched && form.controls.password.invalid"
+          />
+          <div class="invalid-feedback">La contraseña es obligatoria.</div>
+        </div>
+
+        @if (error()) {
+          <div class="alert alert-danger py-2 small" role="alert">
+            <i class="bi bi-exclamation-triangle me-1"></i> Correo o contraseña incorrectos.
+          </div>
+        }
+
+        <div class="form-check mb-3">
+          <input
+            id="recordar"
+            type="checkbox"
+            class="form-check-input"
+            formControlName="recordar"
+          />
+          <label for="recordar" class="form-check-label">Recordarme</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100" [disabled]="cargando()">
+          @if (cargando()) {
+            <span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>
+          }
+          Ingresar
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

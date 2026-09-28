@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { adminGuard, invitadoGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -24,12 +25,19 @@ export const routes: Routes = [
   {
     path: 'admin',
     title: 'Administrar | NotiU',
+    canActivate: [adminGuard],
     loadComponent: () => import('./pages/admin/admin'),
   },
   {
     path: 'contacto',
     title: 'Contacto | NotiU',
     loadComponent: () => import('./pages/contacto/contacto').then((m) => m.Contacto),
+  },
+  {
+    path: 'login',
+    title: 'Iniciar sesión | NotiU',
+    canActivate: [invitadoGuard],
+    loadComponent: () => import('./pages/login/login'),
   },
   { path: '**', redirectTo: '' },
 ];
