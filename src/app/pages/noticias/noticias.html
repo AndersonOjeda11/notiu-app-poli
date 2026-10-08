@@ -13,7 +13,7 @@
           placeholder="Buscar noticia..."
           aria-label="Buscar noticia"
           [value]="busqueda()"
-          (input)="busqueda.set($any($event.target).value)"
+          (input)="buscar($any($event.target).value)"
         />
       </div>
     </div>
@@ -25,7 +25,7 @@
             class="btn btn-sm rounded-pill"
             [class]="categoria() === c ? 'btn-primary' : 'btn-outline-secondary'"
             [attr.aria-pressed]="categoria() === c"
-            (click)="categoria.set(c)"
+            (click)="elegirCategoria(c)"
           >
             {{ c }}
           </button>
@@ -37,7 +37,7 @@
   <p class="small text-body-secondary">{{ filtradas().length }} noticia(s) encontradas</p>
 
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-    @for (noticia of filtradas(); track noticia.id) {
+    @for (noticia of visibles(); track noticia.id) {
       <div class="col">
         <app-noticia-card [noticia]="noticia" />
       </div>
@@ -51,4 +51,38 @@
       </div>
     }
   </div>
+
+  @if (totalPaginas() > 1) {
+    <nav class="mt-4" aria-label="Paginación de noticias">
+      <ul class="pagination justify-content-center flex-wrap">
+        <li class="page-item" [class.disabled]="pagina() === 1">
+          <button type="button" class="page-link" (click)="irAPagina(pagina() - 1)" [disabled]="pagina() === 1">
+            Anterior
+          </button>
+        </li>
+        @for (p of paginas(); track p) {
+          <li class="page-item" [class.active]="p === pagina()">
+            <button
+              type="button"
+              class="page-link"
+              [attr.aria-current]="p === pagina() ? 'page' : null"
+              (click)="irAPagina(p)"
+            >
+              {{ p }}
+            </button>
+          </li>
+        }
+        <li class="page-item" [class.disabled]="pagina() === totalPaginas()">
+          <button
+            type="button"
+            class="page-link"
+            (click)="irAPagina(pagina() + 1)"
+            [disabled]="pagina() === totalPaginas()"
+          >
+            Siguiente
+          </button>
+        </li>
+      </ul>
+    </nav>
+  }
 </div>
