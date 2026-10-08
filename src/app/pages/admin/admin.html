@@ -2,7 +2,7 @@
   <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
     <div>
       <h1 class="h2 mb-0">Administrar noticias</h1>
-      <small class="text-body-secondary">Crea nuevas noticias o elimina las existentes.</small>
+      <small class="text-body-secondary">Crea, edita o elimina noticias.</small>
     </div>
     <button type="button" class="btn btn-outline-secondary btn-sm" (click)="restablecer()">
       <i class="bi bi-arrow-counterclockwise"></i> Restablecer datos del JSON
@@ -23,8 +23,22 @@
 
   <div class="row g-4">
     <div class="col-lg-4">
-      <form class="card" [formGroup]="form" (ngSubmit)="guardar()" novalidate>
-        <div class="card-header fw-semibold">Nueva noticia</div>
+      <form
+        #formulario
+        class="card"
+        [class.border-warning]="editandoId() !== null"
+        [formGroup]="form"
+        (ngSubmit)="guardar()"
+        novalidate
+      >
+        <div class="card-header fw-semibold d-flex justify-content-between align-items-center">
+          @if (editandoId() !== null) {
+            <span>Editar noticia #{{ editandoId() }}</span>
+            <span class="badge text-bg-warning">Editando</span>
+          } @else {
+            <span>Nueva noticia</span>
+          }
+        </div>
         <div class="card-body">
           <div class="mb-3">
             <label for="titulo" class="form-label">Título *</label>
@@ -70,7 +84,13 @@
               placeholder="https://..."
               [class.is-invalid]="invalido('imagen')"
             />
-            <div class="form-text">Opcional. Si la dejas vacía se usa una imagen aleatoria.</div>
+            <div class="form-text">
+              @if (editandoId() !== null) {
+                Opcional. Si la dejas vacía se conserva la imagen actual.
+              } @else {
+                Opcional. Si la dejas vacía se usa una imagen aleatoria.
+              }
+            </div>
             <div class="invalid-feedback">Debe empezar por http:// o https://</div>
           </div>
           <div class="mb-3">
@@ -105,9 +125,20 @@
             />
             <label for="destacada" class="form-check-label">Mostrar en destacadas del inicio</label>
           </div>
-          <button type="submit" class="btn btn-primary w-100">
-            <i class="bi bi-save"></i> Guardar noticia
-          </button>
+          @if (editandoId() !== null) {
+            <div class="d-flex gap-2">
+              <button type="submit" class="btn btn-warning flex-grow-1">
+                <i class="bi bi-check-lg"></i> Guardar cambios
+              </button>
+              <button type="button" class="btn btn-outline-secondary" (click)="cancelarEdicion()">
+                Cancelar
+              </button>
+            </div>
+          } @else {
+            <button type="submit" class="btn btn-primary w-100">
+              <i class="bi bi-save"></i> Guardar noticia
+            </button>
+          }
         </div>
       </form>
     </div>
@@ -132,7 +163,7 @@
             </thead>
             <tbody>
               @for (n of noticiasService.noticias(); track n.id) {
-                <tr>
+                <tr [class.table-warning]="editandoId() === n.id">
                   <td>{{ n.id }}</td>
                   <td>
                     <a [routerLink]="['/noticias', n.id]" class="text-body">{{ n.titulo }}</a>
@@ -143,7 +174,15 @@
                     }}</span>
                   </td>
                   <td class="text-nowrap small">{{ n.fecha | date: 'mediumDate' }}</td>
-                  <td class="text-end">
+                  <td class="text-end text-nowrap">
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary btn-sm me-1"
+                      [attr.aria-label]="'Editar ' + n.titulo"
+                      (click)="editar(n); formulario.scrollIntoView({ behavior: 'smooth', block: 'start' })"
+                    >
+                      <i class="bi bi-pencil"></i> Editar
+                    </button>
                     <button
                       type="button"
                       class="btn btn-outline-danger btn-sm"
