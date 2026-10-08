@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { CATEGORIAS, Categoria } from '../../models/noticia.model';
+import { CATEGORIAS, Categoria, Noticia } from '../../models/noticia.model';
 import { CategoriaClasePipe } from '../../pipes/categoria-clase.pipe';
 import { NoticiasService } from '../../services/noticias.service';
 
@@ -15,6 +15,8 @@ export default class Admin {
   protected readonly noticiasService = inject(NoticiasService);
   protected readonly categorias = CATEGORIAS;
   protected readonly aviso = signal<string | null>(null);
+  /** Id de la noticia cargada en el formulario para editarla, o null si se está creando una nueva. */
+  protected readonly editandoId = signal<number | null>(null);
 
   protected readonly form = inject(FormBuilder).nonNullable.group({
     titulo: ['', [Validators.required, Validators.minLength(10)]],
@@ -37,6 +39,20 @@ export default class Admin {
       return;
     }
     const datos = this.form.getRawValue();
+    const id = this.editandoId();
+
+    if (id !== null) {
+      const imagenActual = this.noticiasService.obtenerPorId(id)?.imagen ?? '';
+      this.noticiasService.actualizar(id, {
+        ...datos,
+        categoria: datos.categoria as Categoria,
+        imagen: datos.imagen || imagenActual,
+      });
+      this.cancelarEdicion();
+      this.aviso.set(`Noticia "${datos.titulo}" actualizada correctamente.`);
+      return;
+    }
+
     const nueva = this.noticiasService.crear({
       ...datos,
       categoria: datos.categoria as Categoria,
@@ -46,8 +62,30 @@ export default class Admin {
     this.aviso.set(`Noticia "${nueva.titulo}" creada correctamente.`);
   }
 
+  editar(noticia: Noticia): void {
+    this.editandoId.set(noticia.id);
+    this.form.reset({
+      titulo: noticia.titulo,
+      categoria: noticia.categoria,
+      imagen: noticia.imagen,
+      autor: noticia.autor,
+      descripcion: noticia.descripcion,
+      contenido: noticia.contenido,
+      destacada: noticia.destacada,
+    });
+    this.aviso.set(null);
+  }
+
+  cancelarEdicion(): void {
+    this.editandoId.set(null);
+    this.form.reset();
+  }
+
   eliminar(id: number, titulo: string): void {
     if (confirm(`¿Seguro que quieres eliminar "${titulo}"? Esta acción no se puede deshacer.`)) {
+      if (this.editandoId() === id) {
+        this.cancelarEdicion();
+      }
       this.noticiasService.eliminar(id);
       this.aviso.set(`Noticia "${titulo}" eliminada.`);
     }
@@ -60,6 +98,7 @@ export default class Admin {
       )
     ) {
       await this.noticiasService.restablecer();
+      this.cancelarEdicion();
       this.aviso.set('Se restablecieron las noticias originales del JSON.');
     }
   }
