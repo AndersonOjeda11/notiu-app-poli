@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CATEGORIAS, Categoria, Noticia } from '../../models/noticia.model';
 import { CategoriaClasePipe } from '../../pipes/categoria-clase.pipe';
+import { ConfirmacionService } from '../../services/confirmacion.service';
 import { NoticiasService } from '../../services/noticias.service';
 
 @Component({
@@ -13,6 +14,7 @@ import { NoticiasService } from '../../services/noticias.service';
 })
 export default class Admin {
   protected readonly noticiasService = inject(NoticiasService);
+  private readonly confirmacion = inject(ConfirmacionService);
   protected readonly categorias = CATEGORIAS;
   protected readonly aviso = signal<string | null>(null);
   /** Id de la noticia cargada en el formulario para editarla, o null si se está creando una nueva. */
@@ -81,25 +83,20 @@ export default class Admin {
     this.form.reset();
   }
 
-  eliminar(id: number, titulo: string): void {
-    if (confirm(`¿Seguro que quieres eliminar "${titulo}"? Esta acción no se puede deshacer.`)) {
-      if (this.editandoId() === id) {
-        this.cancelarEdicion();
-      }
-      this.noticiasService.eliminar(id);
-      this.aviso.set(`Noticia "${titulo}" eliminada.`);
+  async eliminar(id: number, titulo: string): Promise<void> {
+    const confirmado = await this.confirmacion.confirmar({
+      titulo: 'Eliminar noticia',
+      mensaje: `¿Seguro que quieres eliminar "${titulo}"? Esta acción no se puede deshacer.`,
+      textoConfirmar: 'Eliminar',
+      variante: 'danger',
+    });
+    if (!confirmado) {
+      return;
     }
-  }
-
-  async restablecer(): Promise<void> {
-    if (
-      confirm(
-        'Esto borra los cambios hechos y vuelve a cargar las noticias del archivo JSON. ¿Continuar?',
-      )
-    ) {
-      await this.noticiasService.restablecer();
+    if (this.editandoId() === id) {
       this.cancelarEdicion();
-      this.aviso.set('Se restablecieron las noticias originales del JSON.');
     }
+    this.noticiasService.eliminar(id);
+    this.aviso.set(`Noticia "${titulo}" eliminada.`);
   }
 }
