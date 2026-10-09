@@ -1,12 +1,7 @@
 <div class="container py-4">
-  <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-    <div>
-      <h1 class="h2 mb-0">Administrar noticias</h1>
-      <small class="text-body-secondary">Crea, edita o elimina noticias.</small>
-    </div>
-    <button type="button" class="btn btn-outline-secondary btn-sm" (click)="restablecer()">
-      <i class="bi bi-arrow-counterclockwise"></i> Restablecer datos del JSON
-    </button>
+  <div class="mb-3">
+    <h1 class="h2 mb-0">Administrar noticias</h1>
+    <small class="text-body-secondary">Crea, edita o elimina noticias.</small>
   </div>
 
   @if (aviso(); as mensaje) {

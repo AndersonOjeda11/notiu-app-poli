@@ -58,12 +58,6 @@ export class NoticiasService {
     this.guardar(this.noticias().filter((n) => n.id !== id));
   }
 
-  /** Borra los cambios locales y vuelve a los datos originales del JSON. */
-  async restablecer(): Promise<void> {
-    localStorage.removeItem(CLAVE_NOTICIAS);
-    await this.cargar();
-  }
-
   private guardar(noticias: Noticia[]): void {
     this.noticias.set(noticias);
     localStorage.setItem(CLAVE_NOTICIAS, JSON.stringify(noticias));
