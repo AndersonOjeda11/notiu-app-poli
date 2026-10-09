@@ -1,16 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Footer } from './components/footer/footer';
+import { ModalConfirmacion } from './components/modal-confirmacion/modal-confirmacion';
+import { Navbar } from './components/navbar/navbar';
+import { ConfirmacionService } from './services/confirmacion.service';
 
-/** Componente raíz del proyecto base (Angular + Bootstrap). */
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Footer, Navbar, ModalConfirmacion],
   template: `
-    <div class="container py-5">
-      <h1 class="display-6 fw-bold"><i class="bi bi-newspaper text-primary"></i> NotiU</h1>
-      <p class="text-body-secondary">Proyecto base: Angular 22 + Bootstrap 5.</p>
-    </div>
-    <router-outlet />
+    <app-navbar />
+    <main class="flex-grow-1">
+      <router-outlet />
+    </main>
+    <app-footer />
+
+    @if (confirmacion.solicitud(); as solicitud) {
+      <app-modal-confirmacion
+        [titulo]="solicitud.titulo"
+        [mensaje]="solicitud.mensaje"
+        [textoConfirmar]="solicitud.textoConfirmar"
+        [textoCancelar]="solicitud.textoCancelar"
+        [variante]="solicitud.variante"
+        (confirmado)="confirmacion.responder(true)"
+        (cancelado)="confirmacion.responder(false)"
+      />
+    }
   `,
+  host: { class: 'd-flex flex-column min-vh-100' },
 })
-export class App {}
+export class App {
+  protected readonly confirmacion = inject(ConfirmacionService);
+}

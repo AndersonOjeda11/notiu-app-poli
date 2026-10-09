@@ -1,0 +1,62 @@
+<div class="container py-4">
+  <!-- Sección de bienvenida -->
+  <section class="p-4 p-md-5 mb-5 bg-body-tertiary border rounded-3">
+    <h1 class="display-5 fw-bold">Bienvenido a NotiU</h1>
+    <p class="lead text-body-secondary col-lg-8">
+      Tu fuente de noticias estudiantiles: tecnología, educación, turismo y comercio en un solo lugar.
+    </p>
+    <div class="d-flex flex-wrap gap-2">
+      <a routerLink="/noticias" class="btn btn-primary btn-lg">Ver noticias</a>
+      <a routerLink="/contacto" class="btn btn-outline-dark btn-lg">Contáctanos</a>
+    </div>
+  </section>
+
+  <!-- Noticias destacadas -->
+  <section class="mb-5">
+    <div class="d-flex justify-content-between align-items-end mb-3">
+      <div>
+        <h2 class="h3 mb-0">Noticias destacadas</h2>
+        <small class="text-body-secondary">Lo más importante de la semana en el campus.</small>
+      </div>
+      <a routerLink="/noticias" class="small">Ver todas →</a>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      @for (noticia of destacadas(); track noticia.id) {
+        <div class="col">
+          <app-noticia-card [noticia]="noticia" />
+        </div>
+      } @empty {
+        <p class="text-body-secondary">No hay noticias para mostrar.</p>
+      }
+    </div>
+  </section>
+
+  <!-- Testimonios -->
+  <section class="p-4 mb-5 bg-body-tertiary border rounded-3">
+    <h2 class="h3 text-center mb-4">Lo que dicen nuestros lectores</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-3">
+      @for (t of testimonios; track t.nombre) {
+        <div class="col">
+          <div class="card h-100 text-center">
+            <div class="card-body">
+              <i class="bi bi-quote fs-2 text-secondary"></i>
+              <p class="fst-italic">"{{ t.texto }}"</p>
+              <div class="fw-semibold">{{ t.nombre }}</div>
+              <small class="text-body-secondary">{{ t.carrera }}</small>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Llamado a la acción -->
+  <section class="border rounded-3 p-4 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+    <div>
+      <h2 class="h5 mb-1">¿Tienes una noticia para compartir?</h2>
+      <p class="text-body-secondary mb-0">Escríbenos y la redacción la revisará.</p>
+    </div>
+    <a routerLink="/contacto" class="btn btn-primary">Enviar noticia</a>
+  </section>
+</div>

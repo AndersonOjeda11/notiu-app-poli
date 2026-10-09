@@ -1,0 +1,37 @@
+<!-- Se usa el marcado de Bootstrap, pero Angular controla cuándo se muestra (sin bootstrap.Modal). -->
+<div
+  class="modal d-block"
+  tabindex="-1"
+  role="dialog"
+  aria-modal="true"
+  [attr.aria-labelledby]="idTitulo"
+  [attr.aria-describedby]="idMensaje"
+  (click)="clicFondo($event)"
+  (keydown)="atraparFoco($event)"
+>
+  <div class="modal-dialog modal-dialog-centered" #dialogo>
+    <div class="modal-content shadow">
+      <div class="modal-header">
+        <h2 class="modal-title h5" [id]="idTitulo">{{ titulo() }}</h2>
+        <button type="button" class="btn-close" aria-label="Cerrar" (click)="cancelado.emit()"></button>
+      </div>
+      <div class="modal-body">
+        <p class="mb-0" [id]="idMensaje">{{ mensaje() }}</p>
+      </div>
+      <div class="modal-footer">
+        <button
+          #botonCancelar
+          type="button"
+          class="btn btn-outline-secondary"
+          (click)="cancelado.emit()"
+        >
+          {{ textoCancelar() }}
+        </button>
+        <button type="button" class="btn" [class]="'btn-' + variante()" (click)="confirmado.emit()">
+          {{ textoConfirmar() }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop show"></div>

@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "titulo": "Nueva sala de innovación y robótica abre sus puertas en el campus",
+    "categoria": "Tecnología",
+    "fecha": "2026-09-14",
+    "autor": "Mariano Gómez",
+    "imagen": "https://picsum.photos/seed/robotica/800/450",
+    "descripcion": "El nuevo laboratorio cuenta con brazos robóticos e impresoras 3D disponibles para todos los estudiantes.",
+    "contenido": "La universidad inauguró esta semana su nueva sala de innovación y robótica, un espacio de más de 200 metros cuadrados equipado con brazos robóticos, impresoras 3D y kits de electrónica.\n\nEl laboratorio estará abierto de lunes a viernes y cualquier estudiante podrá reservarlo a través de la coordinación de su facultad. Durante el primer mes se dictarán talleres gratuitos de introducción a Arduino y modelado 3D.\n\n\"Queremos que los estudiantes pasen de la teoría a la práctica desde los primeros semestres\", explicó la coordinadora del laboratorio.",
+    "destacada": true
+  },
+  {
+    "id": 2,
+    "titulo": "Convocatoria abierta para becas de intercambio académico internacional",
+    "categoria": "Educación",
+    "fecha": "2026-09-12",
+    "autor": "Laura Rincón",
+    "imagen": "https://picsum.photos/seed/biblioteca/800/450",
+    "descripcion": "Estudiantes de todas las facultades podrán postularse para cursar un semestre en el exterior.",
+    "contenido": "La oficina de relaciones internacionales abrió la convocatoria de becas de intercambio para el primer semestre de 2027. Hay cupos en universidades de México, España, Argentina y Chile.\n\nLos requisitos son tener un promedio acumulado superior a 3.8, haber cursado al menos el 40 % de la carrera y presentar una carta de motivación.\n\nLas postulaciones se reciben hasta el 30 de octubre a través del portal estudiantil.",
+    "destacada": true
+  },
+  {
+    "id": 3,
+    "titulo": "Ruta ecológica: estudiantes realizan expedición al parque nacional",
+    "categoria": "Turismo",
+    "fecha": "2026-09-09",
+    "autor": "Sofía Valenzuela",
+    "imagen": "https://picsum.photos/seed/montana/800/450",
+    "descripcion": "La cátedra de ecología organizó una jornada de tres días para registrar la biodiversidad de la zona.",
+    "contenido": "Un grupo de 35 estudiantes participó en la expedición al parque nacional organizada por la cátedra de ecología. Durante tres días recorrieron senderos, tomaron muestras y registraron especies de aves y plantas nativas.\n\nLa actividad hace parte del programa de turismo sostenible de la universidad, que busca acercar a los estudiantes a los ecosistemas del país.\n\nLa próxima salida está programada para noviembre y las inscripciones abren la próxima semana.",
+    "destacada": true
+  },
+  {
+    "id": 4,
+    "titulo": "Feria de emprendedores universitarios reúne a más de 40 proyectos",
+    "categoria": "Comercio",
+    "fecha": "2026-09-07",
+    "autor": "Martín Gómez",
+    "imagen": "https://picsum.photos/seed/feria/800/450",
+    "descripcion": "Los proyectos ganadores recibirán asesoría y capital semilla para lanzar su negocio.",
+    "contenido": "La plazoleta central se llenó de stands en la tercera edición de la feria de emprendedores. Más de 40 proyectos estudiantiles presentaron productos de moda, alimentos, tecnología y servicios.\n\nUn jurado de empresarios seleccionó cinco proyectos que recibirán seis meses de asesoría y un capital semilla para arrancar su negocio.\n\nLa feria también contó con charlas sobre finanzas personales y marketing digital.",
+    "destacada": false
+  },
+  {
+    "id": 5,
+    "titulo": "Hackathon anual 2026: inscripciones abiertas para equipos",
+    "categoria": "Tecnología",
+    "fecha": "2026-09-05",
+    "autor": "Mariano Gómez",
+    "imagen": "https://picsum.photos/seed/hackathon/800/450",
+    "descripcion": "Equipos de hasta cuatro personas tendrán 48 horas para resolver un reto propuesto por empresas aliadas.",
+    "contenido": "Ya están abiertas las inscripciones para el hackathon anual. Los equipos, de máximo cuatro integrantes, tendrán 48 horas para desarrollar una solución a un reto real planteado por empresas aliadas.\n\nHabrá mentores disponibles durante todo el evento y premios para los tres primeros lugares.\n\nNo es necesario ser estudiante de ingeniería: se buscan equipos interdisciplinarios con perfiles de diseño, negocios y comunicación.",
+    "destacada": false
+  },
+  {
+    "id": 6,
+    "titulo": "Nuevo ciclo de talleres de redacción y oratoria para primer semestre",
+    "categoria": "Educación",
+    "fecha": "2026-09-03",
+    "autor": "Laura Rincón",
+    "imagen": "https://picsum.photos/seed/taller/800/450",
+    "descripcion": "Los talleres son gratuitos y se dictarán todos los miércoles en la biblioteca central.",
+    "contenido": "El centro de escritura lanzó un nuevo ciclo de talleres de redacción académica y oratoria dirigido a estudiantes de primer semestre.\n\nLas sesiones se realizarán los miércoles de 2:00 a 4:00 p. m. en la biblioteca central. Cada taller tiene un cupo de 25 personas.\n\nAl finalizar el ciclo, los participantes recibirán un certificado de asistencia.",
+    "destacada": false
+  },
+  {
+    "id": 7,
+    "titulo": "Semana cultural llega con conciertos, cine y gastronomía local",
+    "categoria": "Turismo",
+    "fecha": "2026-08-30",
+    "autor": "Sofía Valenzuela",
+    "imagen": "https://picsum.photos/seed/cultura/800/450",
+    "descripcion": "Durante cinco días el campus se convierte en una vitrina de la cultura de distintas regiones del país.",
+    "contenido": "La semana cultural regresa con una programación de conciertos, muestras de cine y una feria gastronómica con platos típicos de distintas regiones.\n\nTodas las actividades son gratuitas y abiertas a la comunidad. El cierre será un concierto en la plazoleta central el viernes a las 6:00 p. m.",
+    "destacada": false
+  },
+  {
+    "id": 8,
+    "titulo": "Cafetería universitaria estrena menú saludable a precios estudiantiles",
+    "categoria": "Comercio",
+    "fecha": "2026-08-27",
+    "autor": "Martín Gómez",
+    "imagen": "https://picsum.photos/seed/cafeteria/800/450",
+    "descripcion": "El nuevo menú incluye opciones vegetarianas y combos por menos de diez mil pesos.",
+    "contenido": "La cafetería central renovó su menú con opciones más saludables: ensaladas, wraps, bowls y bebidas naturales, además de opciones vegetarianas todos los días.\n\nLos combos estudiantiles cuestan menos de diez mil pesos y se pueden pagar con el carné universitario.",
+    "destacada": false
+  }
+]

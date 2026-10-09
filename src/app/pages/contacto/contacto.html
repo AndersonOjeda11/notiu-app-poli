@@ -1,0 +1,73 @@
+<div class="container py-4">
+  <h1 class="h2">Contáctanos</h1>
+  <p class="text-body-secondary">¿Tienes una consulta o sugerencia? Escríbele a la redacción.</p>
+
+  @if (enviado()) {
+    <div class="alert alert-success alert-dismissible" role="alert">
+      <i class="bi bi-check-circle me-1"></i> ¡Mensaje enviado correctamente! Te responderemos pronto.
+      <button type="button" class="btn-close" aria-label="Cerrar" (click)="enviado.set(false)"></button>
+    </div>
+  }
+
+  <div class="row g-4">
+    <!-- Formulario -->
+    <div class="col-lg-7">
+      <form class="card card-body" [formGroup]="form" (ngSubmit)="enviar()" novalidate>
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre completo *</label>
+          <input id="nombre" class="form-control" formControlName="nombre" placeholder="Ej. Juan Pérez"
+                 [class.is-invalid]="invalido('nombre')" />
+          <div class="invalid-feedback">Escribe tu nombre (mínimo 3 letras).</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="correo" class="form-label">Correo electrónico *</label>
+          <input id="correo" type="email" class="form-control" formControlName="correo" placeholder="tu@correo.com"
+                 [class.is-invalid]="invalido('correo')" />
+          <div class="invalid-feedback">
+            @if (form.controls.correo.hasError('required')) {
+              El correo es obligatorio.
+            } @else {
+              Ingresa un correo válido.
+            }
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="asunto" class="form-label">Asunto *</label>
+          <select id="asunto" class="form-select" formControlName="asunto" [class.is-invalid]="invalido('asunto')">
+            <option value="" disabled>Selecciona un motivo...</option>
+            @for (a of asuntos; track a) {
+              <option [value]="a">{{ a }}</option>
+            }
+          </select>
+          <div class="invalid-feedback">Selecciona un asunto.</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="mensaje" class="form-label">Mensaje *</label>
+          <textarea id="mensaje" rows="5" class="form-control" formControlName="mensaje"
+                    placeholder="Escribe aquí tu mensaje..." [class.is-invalid]="invalido('mensaje')"></textarea>
+          <div class="invalid-feedback">El mensaje debe tener al menos 10 caracteres.</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          <i class="bi bi-send"></i> Enviar mensaje
+        </button>
+      </form>
+    </div>
+
+    <!-- Información de contacto -->
+    <div class="col-lg-5">
+      <div class="card">
+        <div class="card-header fw-semibold">Información de contacto</div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><i class="bi bi-geo-alt me-2 text-primary"></i>Edificio central, piso 2, oficina 204</li>
+          <li class="list-group-item"><i class="bi bi-telephone me-2 text-primary"></i>+57 601 555 0123</li>
+          <li class="list-group-item"><i class="bi bi-envelope me-2 text-primary"></i>redaccion&#64;notiu.com</li>
+          <li class="list-group-item"><i class="bi bi-clock me-2 text-primary"></i>Lunes a viernes, 8:00 a. m. – 5:00 p. m.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
